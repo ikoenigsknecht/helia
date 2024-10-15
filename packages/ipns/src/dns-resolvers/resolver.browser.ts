@@ -1,7 +1,7 @@
 import Resolver from 'dns-over-http-resolver'
 import PQueue from 'p-queue'
 import { CustomProgressEvent } from 'progress-events'
-import { resolveFn, type DNSResponse } from '../utils/dns.js'
+import { resolveFn } from '../utils/dns.js'
 import { TLRU } from '../utils/tlru.js'
 import type { DNSResolver } from '../index.js'
 
@@ -21,18 +21,18 @@ const resolve: DNSResolver = async function resolve (domain, options = {}) {
     const response = cache.get(domain)
 
     if (response != null) {
-      options?.onProgress?.(new CustomProgressEvent<string>('dnslink:cache', { detail: response }))
+      options?.onProgress?.(new CustomProgressEvent<string>('dnslink:cache', response))
       return response
     }
   }
 
-  options.onProgress?.(new CustomProgressEvent<string>('dnslink:query', { detail: domain }))
+  options.onProgress?.(new CustomProgressEvent<string>('dnslink:query', domain))
 
   // Add the query to the queue
   const response = await httpQueue.add(async () => {
     const dnslinkRecord = await resolveFn(resolver, domain)
 
-    options.onProgress?.(new CustomProgressEvent<DNSResponse>('dnslink:answer', { detail: dnslinkRecord }))
+    options.onProgress?.(new CustomProgressEvent<string>('dnslink:answer', dnslinkRecord))
     cache.set(domain, dnslinkRecord, ttl)
 
     return dnslinkRecord

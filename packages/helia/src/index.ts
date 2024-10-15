@@ -161,7 +161,7 @@ export async function createHelia (init: HeliaInit = {}): Promise<HeliaLibp2p> {
         // ignore the libp2p start parameter as it should be on the main init
         // object instead
         start: undefined
-      },
+      } as any,
       datastore
     })
   }

@@ -80,7 +80,7 @@ export function libp2pDefaults (options: Libp2pDefaultsOptions = {}): Libp2pOpti
       ping: ping(),
       relay: circuitRelayServer({
         advertise: true
-      }),
+      } as any),
       upnp: uPnPNAT()
     }
   }

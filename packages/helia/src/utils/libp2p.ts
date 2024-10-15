@@ -44,7 +44,7 @@ export async function createLibp2p <T extends Record<string, unknown> = DefaultL
 
   const defaults = libp2pDefaults(options)
   defaults.datastore = defaults.datastore ?? options.datastore
-  options = options ?? {}
+  options = options ?? {} as CreateLibp2pOptions<any>
 
   // @ts-expect-error derived ServiceMap is not compatible with ServiceFactoryMap
   const node = await create({

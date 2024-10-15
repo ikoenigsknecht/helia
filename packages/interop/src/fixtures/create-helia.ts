@@ -33,21 +33,21 @@ export async function createHeliaNode (libp2pOptions?: Libp2pOptions): Promise<H
       peerInfoMapper: removePublicAddressesMapper,
       clientMode: false
     })
-  }
+  } as any
 
   // remove bootstrappers, mdns, etc
   defaults.peerDiscovery = []
 
   // remove services that are not used in tests
-  delete defaults.services.autoNAT
-  delete defaults.services.dcutr
-  delete defaults.services.delegatedRouting
+  // delete defaults.services.autoNAT
+  // delete defaults.services.dcutr
+  // delete defaults.services.delegatedRouting
 
   return createHelia<Libp2p<DefaultLibp2pServices>>({
     blockBrokers: [
       bitswap()
     ],
-    libp2p: defaults,
+    libp2p: defaults as any,
     hashers: [
       sha3512
     ]

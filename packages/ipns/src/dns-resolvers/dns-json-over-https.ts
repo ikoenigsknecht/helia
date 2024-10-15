@@ -43,12 +43,12 @@ export function dnsJsonOverHttps (url: string): DNSResolver {
       const response = cache.get(query)
 
       if (response != null) {
-        options.onProgress?.(new CustomProgressEvent<string>('dnslink:cache', { detail: response }))
+        options.onProgress?.(new CustomProgressEvent<string>('dnslink:cache', response))
         return response
       }
     }
 
-    options.onProgress?.(new CustomProgressEvent<string>('dnslink:query', { detail: fqdn }))
+    options.onProgress?.(new CustomProgressEvent<string>('dnslink:query', fqdn))
 
     // query DNS-JSON over HTTPS server
     const response = await httpQueue.add(async () => {
@@ -66,7 +66,7 @@ export function dnsJsonOverHttps (url: string): DNSResolver {
       const query = new URL(res.url).search.slice(1)
       const json: DNSResponse = await res.json()
 
-      options.onProgress?.(new CustomProgressEvent<DNSResponse>('dnslink:answer', { detail: json }))
+      options.onProgress?.(new CustomProgressEvent<DNSResponse>('dnslink:answer', json))
 
       const { ipfsPath, answer } = ipfsPathAndAnswer(fqdn, json)
 

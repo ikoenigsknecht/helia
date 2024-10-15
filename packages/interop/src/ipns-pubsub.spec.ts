@@ -21,7 +21,7 @@ import { createKuboNode } from './fixtures/create-kubo.js'
 import { keyTypes } from './fixtures/key-types.js'
 import { waitFor } from './fixtures/wait-for.js'
 import type { IPNS, ResolveResult } from '@helia/ipns'
-import type { Libp2p, PubSub } from '@libp2p/interface'
+import type { KeyType, Libp2p, PubSub } from '@libp2p/interface'
 import type { Keychain } from '@libp2p/keychain'
 import type { HeliaLibp2p } from 'helia'
 import type { Controller } from 'ipfsd-ctl'
@@ -71,7 +71,7 @@ keyTypes.filter(keyType => keyType !== 'RSA').forEach(keyType => {
       const cid = CID.createV1(raw.code, digest)
 
       const keyName = 'my-ipns-key'
-      await helia.libp2p.services.keychain.createKey(keyName, keyType)
+      await helia.libp2p.services.keychain.createKey(keyName, keyType as KeyType)
       const peerId = await helia.libp2p.services.keychain.exportPeerId(keyName)
 
       if (peerId.publicKey == null) {
