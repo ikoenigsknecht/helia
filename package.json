@@ -34,7 +34,9 @@
     "npm:release": "aegir exec --bail false npm -- publish",
     "release:rc": "aegir release-rc",
     "docs": "aegir docs",
-    "docs:no-publish": "aegir docs --publish false"
+    "docs:no-publish": "aegir docs --publish false",
+    "completion": "aegir completion",
+    "rel": "aegir release"
   },
   "devDependencies": {
     "aegir": "^42.1.0",

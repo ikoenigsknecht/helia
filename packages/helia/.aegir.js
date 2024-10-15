@@ -59,6 +59,10 @@ const options = {
         await beforeResult.helia.stop()
       }
     }
+  },
+  release: {
+    publish: false,
+    ghrelease: true
   }
 }
 
