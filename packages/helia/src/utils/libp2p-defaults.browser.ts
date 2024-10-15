@@ -10,7 +10,6 @@ import { type KadDHT, kadDHT } from '@libp2p/kad-dht'
 import { keychain, type Keychain } from '@libp2p/keychain'
 import { mplex } from '@libp2p/mplex'
 import { ping, type PingService } from '@libp2p/ping'
-import { webRTC, webRTCDirect } from '@libp2p/webrtc'
 import { webSockets } from '@libp2p/websockets'
 import { webTransport } from '@libp2p/webtransport'
 import { ipnsSelector } from 'ipns/selector'
@@ -36,15 +35,12 @@ export function libp2pDefaults (options: Libp2pDefaultsOptions = {}): Libp2pOpti
     peerId: options.peerId,
     addresses: {
       listen: [
-        '/webrtc'
       ]
     },
     transports: [
       circuitRelayTransport({
         discoverRelays: 1
       }),
-      webRTC(),
-      webRTCDirect(),
       webTransport(),
       webSockets()
     ],
